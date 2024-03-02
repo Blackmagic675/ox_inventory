@@ -826,7 +826,9 @@ local function registerCommands()
 			description = locale('use_hotbar', i),
 			defaultKey = tostring(i),
 			onPressed = function()
-				if invOpen or IsNuiFocused() or not invHotkeys then return end
+				local ped = PlayerPedId()
+				local vehicleSeat = GetPedInVehicleSeat(GetVehiclePedIsIn(ped, false), -1)
+				if invOpen or IsNuiFocused() or not invHotkeys or ped == vehicleSeat then return end
 				useSlot(i)
 			end
 		})
